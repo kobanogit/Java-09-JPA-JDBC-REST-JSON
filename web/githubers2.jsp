@@ -16,20 +16,22 @@
     </header>
     <div  class="row">
         <div class="col-lg-12">
-            <%--<ul class="list-group">--%>
-                <%--<c:forEach items="${githubUsers}" var="githuber" >--%>
-                    <%--<li class="list-group-item"> login : ${githuber.login} </li>--%>
-                <%--</c:forEach>--%>
-            <%--</ul>            --%>
-
             <ul class="list-group">
                 <c:forEach items="${githubUsers}" var="githuber" >
-                    <li class="list-group-item">
-                        <img src="${githuber.avatar_url}" alt="avatar_url">
-                            ${githuber.login}
-                    </li>
+                    <li class="list-group-item"> login : ${githuber.login} </li>
                 </c:forEach>
             </ul>
+
+
+            <div class="container">
+                <div class="row no-collapse-1">
+                    <section class="4u"> <a href="#" class="image featured"><img src="Phase%20Shift%20by%20TEMPLATED_fichiers/pic01.jpg" alt=""></a>
+                        <div class="box">
+                            <p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum  wisi maecenas ligula.</p>
+                            <a href="#" class="button">Read More</a> </div>
+                    </section>
+                </div>
+            </div>
 
 
         </div>

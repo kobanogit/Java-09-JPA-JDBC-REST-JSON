@@ -15,22 +15,7 @@
         </div>
     </header>
     <div  class="row">
-        <div class="col-lg-6">
-
-
-            <%--Scriptlet :--%>
-            <h2>Scriptlet Version : </h2>
-            <% List<Githuber> githubersList =  (ArrayList<Githuber>)request.getAttribute("githubers"); %>
-            <ul class="list-group">
-                <% for(int i = 0; i < githubersList.size(); i+=1) { %>
-                    <li class="list-group-item"><%=githubersList.get(i).getName()%></li>
-                <% } %>
-            </ul>
-        </div>
-    <%--</div>--%>
-    <%--<div  class="row">--%>
-        <div class="col-lg-6">
-            <%--JSTL :--%>
+        <div class="col-lg-12">
             <h2>JSTL Version : </h2>
             <ul class="list-group">
                 <c:forEach items="${githubers}" var="githuber" >

@@ -6,6 +6,7 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class GithubersService {
     private GithuberDAO githuberDao;
 
     @Inject
-    public GithubersService(GithuberDAO githuberDao){
+    public GithubersService(@Named("MemoryGithuberDao") GithuberDAO githuberDao){
         this.githuberDao = githuberDao;
     }
 
@@ -25,7 +26,7 @@ public class GithubersService {
     public Githuber getGithuber(String login){
         Githuber githuberFound = new Githuber();
         for(Githuber githuber: this.githuberDao.getGithubers()){
-            if(githuber.getName() == login)
+            if(githuber.getName().equals(login))
                 githuberFound =  githuber;
         }
         return githuberFound;

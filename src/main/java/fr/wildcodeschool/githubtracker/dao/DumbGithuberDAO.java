@@ -25,4 +25,9 @@ public class DumbGithuberDAO implements GithuberDAO {
 
         return immutableGithubersList;
     }
+
+    @Override
+    public void saveGithuber(Githuber githuber) throws UnsupportedOperationException{
+
+    }
 }

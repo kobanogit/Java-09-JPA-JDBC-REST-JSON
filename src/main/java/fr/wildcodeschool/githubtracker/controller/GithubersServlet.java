@@ -29,8 +29,10 @@ public class GithubersServlet extends javax.servlet.http.HttpServlet {
 
 //        List<Githuber> githuberDAOList = githuberDAO.getGithubers();
 
-        request.setAttribute("githubers", githuberService.getAllGithubers());
-
+        List<Githuber> gitList = githuberService.getAllGithubers();
+        request.setAttribute("githubers", gitList);
+        System.out.println("gitlist : " + gitList);
         this.getServletContext().getRequestDispatcher("/githubers.jsp").forward(request, response);
+
     }
 }

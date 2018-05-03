@@ -25,12 +25,18 @@ public class MemoryGithuberDao implements GithuberDAO{
     @Override
     public List<Githuber> getGithubers() {
         List<Githuber> githubersList = new ArrayList<>();
+
         List<String> githubersToFindByLogin = new ArrayList();
+        githubersToFindByLogin.add("loloof64");
         githubersToFindByLogin.add("kobanogit");
+        githubersToFindByLogin.add("kobanogit");
+        githubersToFindByLogin.add("kobanogit");
+        githubersToFindByLogin.add("paulferreirasilva");
+
         for(String githuberLogin : githubersToFindByLogin){
             githubersList.add(parseGithuber(githuberLogin));
         }
-        return null;
+        return githubersList;
     }
 
     @PostConstruct
@@ -51,7 +57,6 @@ public class MemoryGithuberDao implements GithuberDAO{
                 mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
                 InputStream stream = new URL(url).openStream();
                 githubUser = mapper.readValue(stream, Githuber.class);
-                System.out.println("githubuser : " + githubUser);
             } catch (JsonGenerationException e) {
                 e.printStackTrace();
             } catch (JsonMappingException e) {

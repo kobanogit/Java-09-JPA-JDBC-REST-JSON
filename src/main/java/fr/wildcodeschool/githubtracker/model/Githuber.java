@@ -6,15 +6,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Githuber {
-    private String name, email, login, avatarUrl;
+//    @JsonProperty("name")
+    private String name;
+
+//    @JsonProperty("email")
+    private String email;
+
+//    @JsonProperty("login")
+    private String login;
+
+//    @JsonProperty("avatarUrl")
+    private String avatarUrl;
+
+//    @JsonProperty("id")
     int id;
 
     public Githuber() {
     }
 
     @JsonCreator
-//    @JsonProperty
-    public Githuber(String name, String email, String login, String avatarUrl, int id) {
+    public Githuber(@JsonProperty("name") String name, @JsonProperty("email") String email,
+                    @JsonProperty("login") String login, @JsonProperty("avatarUrl") String avatarUrl,
+                    @JsonProperty("id") int id) {
         this.name = name;
         this.email = email;
         this.login = login;

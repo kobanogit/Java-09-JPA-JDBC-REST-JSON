@@ -8,11 +8,13 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,43 +22,53 @@ import java.util.Map;
 @Named("MemoryGithuberDao")
 public class MemoryGithuberDao implements GithuberDAO{
 
-    Map<String, Githuber> githuberLoginMap;
+    private static List <Githuber> githubers = new ArrayList<>();
+
+    @Inject
+    private ObjectMapper om;
 
     @Override
     public List<Githuber> getGithubers() {
-        List<Githuber> githubersList = new ArrayList<>();
+//        List<Githuber> githubersList = new ArrayList<>();
 
-        List<String> githubersToFindByLogin = new ArrayList();
-        githubersToFindByLogin.add("loloof64");
-        githubersToFindByLogin.add("kobanogit");
-        githubersToFindByLogin.add("kobanogit");
-        githubersToFindByLogin.add("kobanogit");
-        githubersToFindByLogin.add("paulferreirasilva");
+//        List<Githuber> list = new ArrayList<Githuber>(githuberLoginMap.values());
 
-        for(String githuberLogin : githubersToFindByLogin){
-            githubersList.add(parseGithuber(githuberLogin));
-        }
-        return githubersList;
+//        System.out.println(list);
+//        List<String> githubersToFindByLogin = new ArrayList();
+//        githubersToFindByLogin.add("kevwil");
+//        githubersToFindByLogin.add("anotherjesse");
+//        githubersToFindByLogin.add("fanvsfan");
+//        githubersToFindByLogin.add("railsjitsu");
+//        githubersToFindByLogin.add("KirinDave");
+
+//        for(Githuber githuber : list){
+//            githubersList.add(parseGithuber(githuberLogin));
+//        }
+
+        return githubers;
     }
 
     @PostConstruct
     @Override
     public void saveGithuber(Githuber githuber) {
-        // Appelle les 5 githubers de Dumb
-        // Ajout à la map
+        if(githuber.getLogin() != null) {
+//            githuberLoginMap.put(githuber.getName(), githuber);
+            githubers.add(githuber);
+//            System.out.println(Arrays.toString(githuberLoginMap.entrySet().toArray()));
+
+        }
     }
 
     public Githuber parseGithuber(String login){
         Githuber githubUser = new Githuber();
-        if(login.getClass().equals(String.class)
-//                && StringUtils.isNotBlank(login)
-                && login != null){
+        if(login.getClass().equals(String.class) && login != null){
             String url = "https://api.github.com/users/" + login;
-            ObjectMapper mapper = new ObjectMapper();
             try {
-                mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
                 InputStream stream = new URL(url).openStream();
-                githubUser = mapper.readValue(stream, Githuber.class);
+                githubUser = om.readValue(stream, Githuber.class);
+//                System.out.println(githubUser.getLogin());
+//                if (githubUser.getName() == null) githubUser = null;
             } catch (JsonGenerationException e) {
                 e.printStackTrace();
             } catch (JsonMappingException e) {
@@ -64,6 +76,8 @@ public class MemoryGithuberDao implements GithuberDAO{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+            githubUser = null;
         }
         return githubUser;
     }

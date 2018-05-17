@@ -1,12 +1,12 @@
 package fr.wildcodeschool.githubtracker.controller;
 
-import fr.wildcodeschool.githubtracker.dao.DumbGithuberDAO;
-import fr.wildcodeschool.githubtracker.dao.GithuberDAO;
-import fr.wildcodeschool.githubtracker.dao.MemoryGithuberDao;
+import fr.wildcodeschool.githubtracker.dao.*;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 import fr.wildcodeschool.githubtracker.service.GithubersService;
 
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +16,14 @@ import java.util.List;
 public class GithubersServlet extends javax.servlet.http.HttpServlet {
 
 //    private @Inject GithubersService githuberService;
-    private @Inject MemoryGithuberDao memoryGithuberDao;
+//    private @Inject MemoryGithuberDao memoryGithuberDao;
 
+    @Inject
+    @InMemory
+    private GithuberDAO memoryGithuberDao;
+
+    @Inject
+    private GithubUtils gu;
     /*public GithubersServlet(GithubersService githubersService){
 //        githuberDAO = new DumbGithuberDAO();
 //        githuberService = new GithubersService(githuberDAO);
@@ -33,11 +39,13 @@ public class GithubersServlet extends javax.servlet.http.HttpServlet {
 
         // Initialisation avec 5 githubers
         if(memoryGithuberDao.getGithubers().isEmpty()) {
-            memoryGithuberDao.saveGithuber(memoryGithuberDao.parseGithuber("kevwil"));
-            memoryGithuberDao.saveGithuber(memoryGithuberDao.parseGithuber("anotherjesse"));
-            memoryGithuberDao.saveGithuber(memoryGithuberDao.parseGithuber("ezmobius"));
-            memoryGithuberDao.saveGithuber(memoryGithuberDao.parseGithuber("wayneeseguin"));
-            memoryGithuberDao.saveGithuber(memoryGithuberDao.parseGithuber("KirinDave"));
+            memoryGithuberDao.saveGithuber(gu.parseGithuber("TomBtz"));
+            memoryGithuberDao.saveGithuber(gu.parseGithuber("sebaurel"));
+            memoryGithuberDao.saveGithuber(gu.parseGithuber("JulTorres"));
+            memoryGithuberDao.saveGithuber(gu.parseGithuber("loloof64"));
+            memoryGithuberDao.saveGithuber(gu.parseGithuber("xpdemon"));
+            memoryGithuberDao.saveGithuber(gu.parseGithuber("devart"));
+            memoryGithuberDao.saveGithuber(gu.parseGithuber("kobanogit"));
         }
 
         List<Githuber> gitList = memoryGithuberDao.getGithubers();

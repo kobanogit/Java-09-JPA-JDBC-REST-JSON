@@ -1,8 +1,6 @@
 package fr.wildcodeschool.githubtracker.controller;
 
-import fr.wildcodeschool.githubtracker.dao.DumbGithuberDAO;
-import fr.wildcodeschool.githubtracker.dao.GithuberDAO;
-import fr.wildcodeschool.githubtracker.dao.MemoryGithuberDao;
+import fr.wildcodeschool.githubtracker.dao.*;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 import fr.wildcodeschool.githubtracker.service.GithubersService;
 
@@ -16,17 +14,23 @@ import java.util.List;
 public class TrackServlet extends javax.servlet.http.HttpServlet {
 
 //    private @Inject GithubersService githuberService;
-    private @Inject MemoryGithuberDao memoryGithuberDao;
+//    private @Inject MemoryGithuberDao memoryGithuberDao;
+    @Inject
+    @InMemory
+    private GithuberDAO memoryGithuberDao;
 
+    @Inject
+    private GithubUtils gu;
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String login = request.getParameter("login");
 
         System.out.println(login);
-        Githuber newGithuber = memoryGithuberDao.parseGithuber(login);
+//        Githuber newGithuber = memoryGithuberDao.parseGithuber(login);
+        Githuber newGithuber = gu.parseGithuber(login);
         System.out.println(newGithuber.getLogin());
         if(newGithuber.getLogin() == null){
-            request.setAttribute("info", "Githuber login \" " + login + "\" doesn't exists.");
+            request.setAttribute("info", "Githuber login \" " + login + " \" doesn't exist.");
             this.getServletContext().getRequestDispatcher("/loginSearch.jsp").forward(request, response);
         }else{
             memoryGithuberDao.saveGithuber(newGithuber);

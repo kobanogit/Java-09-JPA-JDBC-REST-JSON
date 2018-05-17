@@ -2,6 +2,7 @@ package fr.wildcodeschool.githubtracker.service;
 
 import fr.wildcodeschool.githubtracker.dao.DumbGithuberDAO;
 import fr.wildcodeschool.githubtracker.dao.GithuberDAO;
+import fr.wildcodeschool.githubtracker.dao.InMemory;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.enterprise.context.Dependent;
@@ -15,7 +16,7 @@ public class GithubersService {
     private GithuberDAO githuberDao;
 
     @Inject
-    public GithubersService(@Named("MemoryGithuberDao") GithuberDAO githuberDao){
+    public GithubersService(@InMemory GithuberDAO githuberDao){
         this.githuberDao = githuberDao;
     }
 

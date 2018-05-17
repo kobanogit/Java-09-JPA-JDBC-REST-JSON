@@ -8,6 +8,8 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
@@ -18,14 +20,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+
+//@Named("MemoryGithuberDao")
+//@Dependent
+// @Default
 @ApplicationScoped
-@Named("MemoryGithuberDao")
+@InMemory
 public class MemoryGithuberDao implements GithuberDAO{
 
     private static List <Githuber> githubers = new ArrayList<>();
 
-    @Inject
-    private ObjectMapper om;
+//    private @Inject ObjectMapper om;
 
     @Override
     public List<Githuber> getGithubers() {
@@ -59,7 +64,7 @@ public class MemoryGithuberDao implements GithuberDAO{
         }
     }
 
-    public Githuber parseGithuber(String login){
+    /*public Githuber parseGithuber(String login){
         Githuber githubUser = new Githuber();
         if(login.getClass().equals(String.class) && login != null){
             String url = "https://api.github.com/users/" + login;
@@ -67,7 +72,7 @@ public class MemoryGithuberDao implements GithuberDAO{
                 om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
                 InputStream stream = new URL(url).openStream();
                 githubUser = om.readValue(stream, Githuber.class);
-//                System.out.println(githubUser.getLogin());
+                System.out.println(githubUser.getLogin());
 //                if (githubUser.getName() == null) githubUser = null;
             } catch (JsonGenerationException e) {
                 e.printStackTrace();
@@ -80,6 +85,6 @@ public class MemoryGithuberDao implements GithuberDAO{
             githubUser = null;
         }
         return githubUser;
-    }
+    }*/
 
 }

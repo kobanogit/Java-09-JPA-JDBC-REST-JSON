@@ -7,8 +7,6 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.List;
 
 @Dependent

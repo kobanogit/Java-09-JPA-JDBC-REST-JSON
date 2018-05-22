@@ -1,25 +1,14 @@
 package fr.wildcodeschool.githubtracker.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
 public class Githuber {
-//    @JsonProperty("name")
     private String name;
-
-//    @JsonProperty("email")
     private String email;
-
-//    @JsonProperty("login")
     private String login;
-
-//    @JsonProperty("avatarUrl")
     private String avatarUrl;
-
-//    @JsonProperty("id")
-    int id;
+    private int id;
 
     public Githuber() {
     }

@@ -2,6 +2,7 @@ package fr.wildcodeschool.githubtracker.controller;
 
 import fr.wildcodeschool.githubtracker.dao.*;
 import fr.wildcodeschool.githubtracker.model.Githuber;
+import fr.wildcodeschool.githubtracker.service.GithubersService;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -18,13 +19,16 @@ public class GithubersServlet extends javax.servlet.http.HttpServlet {
     @Inject
     private GithubUtils gu;
 
+    @Inject
+    private GithubersService githubersService;
+
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
         // Initialisation avec 5 githubers
-        if(memoryGithuberDao.getGithubers().isEmpty()) {
+        if(githubersService.getAllGithubers().isEmpty()) {
             memoryGithuberDao.saveGithuber(gu.parseGithuber("TomBtz"));
             memoryGithuberDao.saveGithuber(gu.parseGithuber("sebaurel"));
             memoryGithuberDao.saveGithuber(gu.parseGithuber("JulTorres"));
@@ -34,7 +38,8 @@ public class GithubersServlet extends javax.servlet.http.HttpServlet {
             memoryGithuberDao.saveGithuber(gu.parseGithuber("kobanogit"));
         }
 
-        List<Githuber> gitList = memoryGithuberDao.getGithubers();
+        List<Githuber> gitList = githubersService.getAllGithubers();
+
         request.setAttribute("githubers", gitList);
         this.getServletContext().getRequestDispatcher("/githubers.jsp").forward(request, response);
 

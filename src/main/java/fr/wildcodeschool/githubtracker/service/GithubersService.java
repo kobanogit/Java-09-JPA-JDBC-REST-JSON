@@ -13,14 +13,17 @@ import java.util.List;
 public class GithubersService {
     private GithuberDAO githuberDao;
 
+
     @Inject
     public GithubersService(@InMemory GithuberDAO githuberDao){
         this.githuberDao = githuberDao;
     }
 
+
     public List<Githuber> getAllGithubers(){
         return githuberDao.getGithubers();
     }
+
 
     public Githuber getGithuber(String login){
         Githuber githuberFound = new Githuber();

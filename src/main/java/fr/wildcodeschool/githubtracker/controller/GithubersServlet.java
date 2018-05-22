@@ -12,13 +12,6 @@ import java.util.List;
 @WebServlet(name = "GithubersServlet", urlPatterns = {"/githubers"})
 public class GithubersServlet extends javax.servlet.http.HttpServlet {
 
-    /*@Inject
-    @InMemory
-    private GithuberDAO memoryGithuberDao;*/
-
-    /*@Inject
-    private GithubUtils gu;*/
-
     @Inject
     private GithubersService githubersService;
 

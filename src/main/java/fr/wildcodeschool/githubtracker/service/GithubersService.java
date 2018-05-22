@@ -20,16 +20,6 @@ public class GithubersService {
     @Inject
     private GithubUtils gu;
 
-    /*@Inject
-    public GithubersService(@InMemory GithuberDAO githuberDao){
-        this.githuberDao = githuberDao;
-    }*/
-
-
-    /*public List<Githuber> getAllGithubers(){
-        return githuberDao.getGithubers();
-    }*/
-
     public List<Githuber> getGithubers(){
         return githuberDao.getGithubers();
     }
@@ -64,7 +54,7 @@ public class GithubersService {
         for (Githuber githuber : githuberList){
             githuberExistsInBdd = (githuber.getId() == id) ? true: false;
         }
-        // Si Githuber existe en BDD : ajout
+        // Si Githuber existe en BDD : suppression
         if (githuberExistsInBdd){
             githuberDao.deleteGithuber(id);
         }

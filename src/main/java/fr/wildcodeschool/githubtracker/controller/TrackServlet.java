@@ -11,10 +11,6 @@ import java.io.IOException;
 @WebServlet(name = "TrackServlet", urlPatterns = {"/track"})
 public class TrackServlet extends javax.servlet.http.HttpServlet {
 
-    /*@Inject
-    @InMemory
-    private GithuberDAO memoryGithuberDao;*/
-
     @Inject
     private GithubUtils gu;
 
@@ -29,7 +25,6 @@ public class TrackServlet extends javax.servlet.http.HttpServlet {
             request.setAttribute("info", "Githuber login \" " + login + " \" doesn't exist.");
             this.getServletContext().getRequestDispatcher("/loginSearch.jsp").forward(request, response);
         }else{
-            /*memoryGithuberDao.saveGithuber(newGithuber);*/
             githubersService.track(login);
             response.sendRedirect("./githubers");
         }

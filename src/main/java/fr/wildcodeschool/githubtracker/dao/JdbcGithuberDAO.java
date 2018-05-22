@@ -14,27 +14,11 @@ import java.util.List;
 @InDatabase
 public class JdbcGithuberDAO implements GithuberDAO{
 
-//    @Inject
-//    ConnectionProducer connectionProducer;
-
     List<Githuber> githuberList = new ArrayList<>();
-
-    /*private Connection getConnection(){
-        Connection conn = null;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/githubtracker?user=newuser&password=password");
-        }catch(SQLException e){
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return conn;
-    }*/
 
     public static final String URL = "jdbc:mysql://localhost:3306/githubtracker";
     public static final String USER = "newuser";
     public static final String PASS = "password";
-
-
 
     /*public static Connection getConnection(){
     // Version de base
@@ -83,7 +67,6 @@ public class JdbcGithuberDAO implements GithuberDAO{
             try {
                 statement = conn.createStatement();
                 String myQuery = "select * from githuber";
-//                String myQuery = "INSERT INTO githuber (github_id, name, login, url, email, bio, location, avatar_url) VALUES (583231, 'The Octocat', 'octocat', 'https://api.github.com/users/octocat', 'null', 'null', 'San Francisco', 'https://avatars3.githubusercontent.com/u/583231?v=4')";
                 rs = statement.executeQuery(myQuery);
                 while (rs.next()) {
                     githuberList.add(new Githuber(

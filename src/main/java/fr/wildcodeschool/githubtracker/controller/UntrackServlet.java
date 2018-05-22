@@ -11,16 +11,8 @@ import java.io.IOException;
 @WebServlet(name = "UntrackServlet", urlPatterns = {"/untrack"})
 public class UntrackServlet extends javax.servlet.http.HttpServlet {
 
-    /*@Inject
-    @InMemory
-    private GithuberDAO memoryGithuberDao;*/
-
-    /*@Inject
-    private GithubUtils gu;*/
-
     @Inject
     private GithubersService githubersService;
-
 
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -30,16 +22,6 @@ public class UntrackServlet extends javax.servlet.http.HttpServlet {
         githubersService.untrack(id);
 
         response.sendRedirect("./githubers");
-
-        /*Githuber newGithuber = gu.parseGithuber(login);
-        if(newGithuber.getLogin() == null){
-            request.setAttribute("info", "Githuber login \" " + login + " \" doesn't exist.");
-            this.getServletContext().getRequestDispatcher("/loginSearch.jsp").forward(request, response);
-        }else{
-            *//*memoryGithuberDao.saveGithuber(newGithuber);*//*
-            githubersService.track(login);
-            response.sendRedirect("./githubers");
-        }*/
 
     }
 

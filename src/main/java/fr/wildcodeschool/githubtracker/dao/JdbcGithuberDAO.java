@@ -42,6 +42,7 @@ public class JdbcGithuberDAO implements GithuberDAO{
     }*/
 
     public Connection getConnection(){
+        // Connection Pool !
         Connection connection = null;
         try{
             DataSource ds = (DataSource) new InitialContext().lookup("myPool");

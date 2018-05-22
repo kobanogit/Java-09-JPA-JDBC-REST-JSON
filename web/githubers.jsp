@@ -20,7 +20,7 @@
                     <c:forEach items="${githubers}" var="githuber" >
                         <li class="list-group-item">
                             <a href="https://github.com/${githuber.login}" target="_blank">
-                                <img src="${githuber.avatarUrl}" alt="avatar" style="max-width:30px;">
+                                <img src="${githuber.avatarUrl}" alt="avatar" style="max-width:50px;border-radius: 5px;">
                             </a>
                             <a href="https://github.com/${githuber.login}">${githuber.name}</a>
                             <form action="untrack" method="post" style="float:right;">

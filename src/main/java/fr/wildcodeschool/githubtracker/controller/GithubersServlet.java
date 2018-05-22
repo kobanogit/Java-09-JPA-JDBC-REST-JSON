@@ -16,8 +16,8 @@ public class GithubersServlet extends javax.servlet.http.HttpServlet {
     @InMemory
     private GithuberDAO memoryGithuberDao;*/
 
-    @Inject
-    private GithubUtils gu;
+    /*@Inject
+    private GithubUtils gu;*/
 
     @Inject
     private GithubersService githubersService;

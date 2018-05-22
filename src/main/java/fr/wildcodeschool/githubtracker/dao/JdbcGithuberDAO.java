@@ -4,6 +4,8 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,8 @@ public class JdbcGithuberDAO implements GithuberDAO{
 
 
 
-    public static Connection getConnection(){
+    /*public static Connection getConnection(){
+    // Version de base
         try {
             Class<?> driverClass = null;
             driverClass = Class.forName("com.mysql.jdbc.Driver");
@@ -52,6 +55,20 @@ public class JdbcGithuberDAO implements GithuberDAO{
             e.printStackTrace();
         }
         return null;
+    }*/
+
+    public Connection getConnection(){
+        Connection connection = null;
+        try{
+            DataSource ds = (DataSource) new InitialContext().lookup("myPool");
+            connection = ds.getConnection();
+
+        } catch(Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return connection;
     }
 
 

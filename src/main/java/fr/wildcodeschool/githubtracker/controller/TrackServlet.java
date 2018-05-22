@@ -34,7 +34,7 @@ public class TrackServlet extends javax.servlet.http.HttpServlet {
             this.getServletContext().getRequestDispatcher("/loginSearch.jsp").forward(request, response);
         }else{
             memoryGithuberDao.saveGithuber(newGithuber);
-            response.sendRedirect("/GithubTracker/githubers");
+            response.sendRedirect("/githubers");
         }
     }
 

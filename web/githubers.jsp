@@ -23,6 +23,12 @@
                                 <img src="${githuber.avatarUrl}" alt="avatar" style="max-width:30px;">
                             </a>
                             <a href="https://github.com/${githuber.login}">${githuber.name}</a>
+                            <form action="untrack" method="post" style="float:right;">
+                                <input type="hidden" class="form-control" id="id" name="id"
+                                       aria-describedby="loginHelp" value="${githuber.id}">
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                            <div style="clear:both;"></div>
                         </li>
                     </c:forEach>
                 </ul>

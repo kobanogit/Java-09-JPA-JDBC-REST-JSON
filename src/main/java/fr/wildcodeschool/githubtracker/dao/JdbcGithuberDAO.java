@@ -134,4 +134,33 @@ public class JdbcGithuberDAO implements GithuberDAO{
         }
 
     }
+
+    @Override
+    public void deleteGithuber(int id) {
+        Statement statement = null;
+        ResultSet rs = null;
+        PreparedStatement preparedStatement = null;
+
+        try{
+            Connection conn = getConnection();
+            try {
+                statement = conn.createStatement();
+                String query = "DELETE FROM githuber WHERE id = ?";
+                preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+            } catch(Exception e) {
+                System.out.println("Error: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                try { if (rs != null) rs.close(); } catch (Exception e) {};
+                try { if (statement != null) statement.close(); } catch (Exception e) {};
+                try { if (conn != null) conn.close(); } catch (Exception e) {};
+            }
+        } catch(Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -44,20 +44,29 @@ public class GithubersService {
     }
 
     public void track(String login){
-        // Si githuber absent de la BDD
-        // Ajout dans la BDD
-        // renvoi de la liste complète dans tous les cas
         List<Githuber> githuberList = this.getGithubers();
         boolean githuberExistsInBdd = false;
         for (Githuber githuber : githuberList){
             githuberExistsInBdd = (githuber.getLogin() == login) ? true: false;
         }
+        // Si Githuber n'existe pas en BDD : ajout
         if (!githuberExistsInBdd){
             // Création objet Githuber si existant sur repo distant
             Githuber newGithuber = gu.parseGithuber(login);
             // Enregistrement en BDD
             githuberDao.saveGithuber(newGithuber);
         }
+    }
 
+    public void untrack(int id){
+        List<Githuber> githuberList = this.getGithubers();
+        boolean githuberExistsInBdd = false;
+        for (Githuber githuber : githuberList){
+            githuberExistsInBdd = (githuber.getId() == id) ? true: false;
+        }
+        // Si Githuber existe en BDD : ajout
+        if (githuberExistsInBdd){
+            githuberDao.deleteGithuber(id);
+        }
     }
 }

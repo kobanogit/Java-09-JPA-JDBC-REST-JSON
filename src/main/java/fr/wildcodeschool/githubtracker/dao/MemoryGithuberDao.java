@@ -26,4 +26,7 @@ public class MemoryGithuberDao implements GithuberDAO{
             githubers.add(githuber);
         }
     }
+
+    @Override
+    public void deleteGithuber(int id) {}
 }

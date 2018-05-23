@@ -14,33 +14,14 @@ import java.util.List;
 @InDatabase
 public class JdbcGithuberDAO implements GithuberDAO{
 
-    List<Githuber> githuberList = new ArrayList<>();
+    List<Githuber> githuberList;
 
     public static final String URL = "jdbc:mysql://localhost:3306/githubtracker";
     public static final String USER = "newuser";
     public static final String PASS = "password";
 
-    /*public static Connection getConnection(){
-    // Version de base
-        try {
-            Class<?> driverClass = null;
-            driverClass = Class.forName("com.mysql.jdbc.Driver");
 
-            Driver driverInstance = (Driver) driverClass.newInstance();
-//DriverManager.registerDriver(new Driver());
-            return DriverManager.getConnection(URL, USER, PASS);
-        } catch (SQLException ex) {
-            throw new RuntimeException("Error connecting to the database", ex);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
-
+    // Connection pool
     public Connection getConnection(){
         // Connection Pool !
         Connection connection = null;
@@ -52,14 +33,28 @@ public class JdbcGithuberDAO implements GithuberDAO{
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
-
         return connection;
     }
 
+    /*
+    // Connection Producer :
+    @Inject
+    ConnectionProducer connectionProducer;
+    public Connection getConnection(){
+        Connection connection = null;
+        try {
+            return connectionProducer.getConnection();
+        } catch(Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return connection;
+    }*/
 
 
     @Override
     public List<Githuber> getGithubers() {
+        githuberList = new ArrayList<>();
         Statement statement = null;
         ResultSet rs = null;
 

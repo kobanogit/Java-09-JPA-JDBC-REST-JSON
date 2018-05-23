@@ -14,7 +14,11 @@ import java.sql.SQLException;
 @Singleton
 public class ConnectionProducer {
 
-    /*public static final String CONNECTION_DRIVER = "com.mysql.cj.jdbc.Driver";
+    // -------------------------
+    // Class unused in the quest
+    // -------------------------
+
+    public static final String CONNECTION_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/githubtracker?useUnicode=true&serverTimezone=CET";
     public static final String CONNECTION_USER = "newuser";
     public static final String CONNECTION_PASSWORD = "password";
@@ -26,7 +30,7 @@ public class ConnectionProducer {
             Class<?> driverClass = Class.forName(CONNECTION_DRIVER);
             DriverManager.registerDriver((Driver)driverClass.newInstance());
         } catch (SQLException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
-            log.error(e.getMessage(), e);
+            // log.error(e.getMessage(), e);
         }
     }
 
@@ -51,7 +55,7 @@ public class ConnectionProducer {
             connection.close();
         }
         catch (SQLException e) {
-            log.warn(e.getMessage(), e);
+            // log.warn(e.getMessage(), e);
         }
-    }*/
+    }
 }

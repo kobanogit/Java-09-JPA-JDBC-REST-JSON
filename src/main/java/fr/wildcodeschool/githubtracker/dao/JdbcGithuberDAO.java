@@ -2,6 +2,7 @@ package fr.wildcodeschool.githubtracker.dao;
 
 import fr.wildcodeschool.githubtracker.model.Githuber;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
@@ -16,40 +17,10 @@ public class JdbcGithuberDAO implements GithuberDAO{
 
     List<Githuber> githuberList;
 
-    public static final String URL = "jdbc:mysql://localhost:3306/githubtracker";
-    public static final String USER = "newuser";
-    public static final String PASS = "password";
+    // Connection pool "myPool" :
+    @Resource(lookup = "myPool")
+    private DataSource dataSource;
 
-
-    // Connection pool
-    public Connection getConnection(){
-        // Connection Pool !
-        Connection connection = null;
-        try{
-            DataSource ds = (DataSource) new InitialContext().lookup("myPool");
-            connection = ds.getConnection();
-
-        } catch(Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return connection;
-    }
-
-    /*
-    // Connection Producer :
-    @Inject
-    ConnectionProducer connectionProducer;
-    public Connection getConnection(){
-        Connection connection = null;
-        try {
-            return connectionProducer.getConnection();
-        } catch(Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return connection;
-    }*/
 
 
     @Override
@@ -58,32 +29,22 @@ public class JdbcGithuberDAO implements GithuberDAO{
         Statement statement = null;
         ResultSet rs = null;
 
-        try{
-            Connection conn = getConnection();
-            try {
-                statement = conn.createStatement();
-                String myQuery = "select * from githuber";
-                rs = statement.executeQuery(myQuery);
-                while (rs.next()) {
-                    githuberList.add(new Githuber(
-                            rs.getString("name"),
-                            rs.getString("email"),
-                            rs.getString("login"),
-                            rs.getString("avatar_url"),
-                            rs.getString("url"),
-                            rs.getString("bio"),
-                            rs.getString("location"),
-                            rs.getInt("id"),
-                            rs.getInt("github_id")
-                    ));
-                }
-            } catch(Exception e) {
-                System.out.println("Error: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                try { if (rs != null) rs.close(); } catch (Exception e) {};
-                try { if (statement != null) statement.close(); } catch (Exception e) {};
-                try { if (conn != null) conn.close(); } catch (Exception e) {};
+        try(Connection conn = dataSource.getConnection()){
+            statement = conn.createStatement();
+            String myQuery = "select * from githuber";
+            rs = statement.executeQuery(myQuery);
+            while (rs.next()) {
+                githuberList.add(new Githuber(
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("login"),
+                        rs.getString("avatar_url"),
+                        rs.getString("url"),
+                        rs.getString("bio"),
+                        rs.getString("location"),
+                        rs.getInt("id"),
+                        rs.getInt("github_id")
+                ));
             }
         } catch(Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -101,9 +62,7 @@ public class JdbcGithuberDAO implements GithuberDAO{
         ResultSet rs = null;
         PreparedStatement preparedStatement = null;
 
-        try{
-            Connection conn = getConnection();
-            try {
+        try(Connection conn = dataSource.getConnection()){
                 statement = conn.createStatement();
                 String query = "INSERT INTO githuber (github_id, name, login, url, email, bio, location, avatar_url) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
                 preparedStatement = conn.prepareStatement(query);
@@ -116,14 +75,6 @@ public class JdbcGithuberDAO implements GithuberDAO{
                 preparedStatement.setString(7, githuber.getLocation());
                 preparedStatement.setString(8, githuber.getAvatarUrl());
                 preparedStatement.executeUpdate();
-            } catch(Exception e) {
-                System.out.println("Error: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                try { if (rs != null) rs.close(); } catch (Exception e) {};
-                try { if (statement != null) statement.close(); } catch (Exception e) {};
-                try { if (conn != null) conn.close(); } catch (Exception e) {};
-            }
         } catch(Exception e) {
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
@@ -137,22 +88,12 @@ public class JdbcGithuberDAO implements GithuberDAO{
         ResultSet rs = null;
         PreparedStatement preparedStatement = null;
 
-        try{
-            Connection conn = getConnection();
-            try {
+        try(Connection conn = dataSource.getConnection()){
                 statement = conn.createStatement();
                 String query = "DELETE FROM githuber WHERE id = ?";
                 preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1, id);
                 preparedStatement.executeUpdate();
-            } catch(Exception e) {
-                System.out.println("Error: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                try { if (rs != null) rs.close(); } catch (Exception e) {};
-                try { if (statement != null) statement.close(); } catch (Exception e) {};
-                try { if (conn != null) conn.close(); } catch (Exception e) {};
-            }
         } catch(Exception e) {
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
